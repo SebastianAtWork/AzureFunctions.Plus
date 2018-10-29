@@ -1,11 +1,11 @@
-﻿using System;
+﻿using AzureFunctions.Plus.Dependency.Contracts;
+using AzureFunctions.Plus.Dependency.NUnit;
+using AzureFunctions.Plus.Dependency.Tests.Utility;
 using Microsoft.Extensions.Logging;
-using Ninject.AzureFunctions.Contracts;
-using Ninject.AzureFunctions.NUnit;
-using Ninject.AzureFunctions.Tests.Utility;
+using Ninject;
 using NUnit.Framework;
 
-namespace Ninject.AzureFunctions.Tests.TestKernelInitializerTests
+namespace AzureFunctions.Plus.Dependency.Tests.TestKernelInitializerTests
 {
     public class AssertCanBuildFeature
     {

@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using AzureFunctions.Plus.Dependency.Contracts;
+using AzureFunctions.Plus.Dependency.NUnit;
+using AzureFunctions.Plus.Dependency.Tests.TestNamespace;
+using AzureFunctions.Plus.Dependency.Tests.TestNamespace.C;
 using Microsoft.Extensions.Logging;
-using Ninject.AzureFunctions.Contracts;
-using Ninject.AzureFunctions.NUnit;
-using Ninject.AzureFunctions.Tests.TestNamespace;
-using Ninject.AzureFunctions.Tests.TestNamespace.C;
+using Ninject;
 using NUnit.Framework;
 
-namespace Ninject.AzureFunctions.Tests.FeatureTestDataSourceTests
+namespace AzureFunctions.Plus.Dependency.Tests.FeatureTestDataSourceTests
 {
     public class Create
     {

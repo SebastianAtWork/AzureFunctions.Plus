@@ -1,8 +1,8 @@
-﻿using System.Diagnostics;
-using Ninject.AzureFunctions.Contracts;
-using Ninject.AzureFunctions.NUnit;
+﻿using AzureFunctions.Plus.Dependency.Contracts;
+using AzureFunctions.Plus.Dependency.NUnit;
+using Ninject;
 
-namespace Ninject.AzureFunctions.Tests.Utility
+namespace AzureFunctions.Plus.Dependency.Tests.Utility
 {
         public class FakeKernelContainer : IAutoFeatureContainer
         {

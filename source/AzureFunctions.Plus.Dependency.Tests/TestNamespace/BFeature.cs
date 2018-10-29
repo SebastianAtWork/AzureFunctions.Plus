@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ninject.AzureFunctions.Contracts;
+﻿using AzureFunctions.Plus.Dependency.Contracts;
 
-namespace Ninject.AzureFunctions.Tests.TestNamespace
+namespace AzureFunctions.Plus.Dependency.Tests.TestNamespace
 {
     public class BFeature : IFeature
     {

@@ -3,12 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using Ninject.AzureFunctions.Contracts;
+using AzureFunctions.Plus.Dependency.Contracts;
+using Ninject;
 using NUnit.Framework;
 
-namespace Ninject.AzureFunctions.NUnit
+namespace AzureFunctions.Plus.Dependency.NUnit
 {
     public class FeatureTestDataSource<TRootType,TKernelInitializer> where TKernelInitializer : IKernelInitializer
     {

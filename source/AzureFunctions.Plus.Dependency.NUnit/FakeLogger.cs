@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 
-namespace Ninject.AzureFunctions.NUnit
+namespace AzureFunctions.Plus.Dependency.NUnit
 {
     public class FakeLogger : ILogger
     {

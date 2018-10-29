@@ -1,16 +1,13 @@
-﻿using Ninject.AzureFunctions.Contracts;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using AzureFunctions.Plus.Dependency.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Logging;
+using Ninject;
 
-namespace Ninject.AzureFunctions
+namespace AzureFunctions.Plus.Dependency
 {
     [ExcludeFromCodeCoverage]
     public class AutoFeatureContainer<T> : IDisposable, IAutoFeatureContainer where T: IKernelInitializer

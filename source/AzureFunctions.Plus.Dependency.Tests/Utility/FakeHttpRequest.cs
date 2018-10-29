@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
-namespace Ninject.AzureFunctions.Tests.Utility
+namespace AzureFunctions.Plus.Dependency.Tests.Utility
 {
     public class FakeHttpRequest<T> : HttpRequest,IDisposable
     {

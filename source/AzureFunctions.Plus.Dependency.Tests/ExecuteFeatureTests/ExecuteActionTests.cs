@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
+using AzureFunctions.Plus.Dependency.Contracts;
+using AzureFunctions.Plus.Dependency.Features;
+using AzureFunctions.Plus.Dependency.Tests.Utility;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.WebJobs.Host;
-using Ninject.AzureFunctions.Contracts;
-using Ninject.AzureFunctions.Features;
-using Ninject.AzureFunctions.Tests.Utility;
+using Ninject;
 using NUnit.Framework;
 
-namespace Ninject.AzureFunctions.Tests.ExecuteFeatureTests
+namespace AzureFunctions.Plus.Dependency.Tests.ExecuteFeatureTests
 {
     public class ExecuteActionTests
     {

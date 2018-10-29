@@ -1,4 +1,6 @@
-﻿namespace Ninject.AzureFunctions.Contracts
+﻿using Ninject;
+
+namespace AzureFunctions.Plus.Dependency.Contracts
 {
     public interface IAutoFeatureContainer
     {

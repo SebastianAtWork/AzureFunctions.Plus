@@ -1,4 +1,4 @@
-﻿namespace Ninject.AzureFunctions.Tests.Utility
+﻿namespace AzureFunctions.Plus.Dependency.Tests.Utility
 {
         public interface IFakeService
         {

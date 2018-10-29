@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ninject.AzureFunctions.NUnit;
-using Ninject.AzureFunctions.Tests.TestNamespace;
-using Ninject.AzureFunctions.Tests.Utility;
+using AzureFunctions.Plus.Dependency.NUnit;
+using AzureFunctions.Plus.Dependency.Tests.TestNamespace;
+using AzureFunctions.Plus.Dependency.Tests.Utility;
+using Ninject;
 using NUnit.Framework;
 
-namespace Ninject.AzureFunctions.Tests.TestKernelInitializerTests.Integration
+namespace AzureFunctions.Plus.Dependency.Tests.TestKernelInitializerTests.Integration
 {
     public class CompleteTestRun
     {

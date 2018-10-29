@@ -1,12 +1,7 @@
-﻿using Microsoft.Azure.WebJobs.Host;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
+using Ninject;
 
-namespace Ninject.AzureFunctions.Contracts
+namespace AzureFunctions.Plus.Dependency.Contracts
 {
     public interface IKernelInitializer
     {

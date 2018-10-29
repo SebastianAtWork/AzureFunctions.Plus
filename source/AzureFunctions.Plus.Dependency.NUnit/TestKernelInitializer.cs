@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using Ninject.AzureFunctions.Contracts;
+using Ninject;
 using NUnit.Framework;
 
-namespace Ninject.AzureFunctions.NUnit
+namespace AzureFunctions.Plus.Dependency.NUnit
 {
     public static class TestKernelInitializer
     {

@@ -1,4 +1,4 @@
-﻿namespace Ninject.AzureFunctions.Tests.FeatureTestDataSourceTests
+﻿namespace AzureFunctions.Plus.Dependency.Tests.FeatureTestDataSourceTests
 {
     internal class FakeKernelInitializer
     {

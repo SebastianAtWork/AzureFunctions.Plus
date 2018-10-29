@@ -1,25 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Castle.Core.Internal;
+using AzureFunctions.Plus.Dependency.Contracts;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Abstractions;
-using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Ninject.AzureFunctions.Contracts;
+using Ninject;
 
-namespace Ninject.AzureFunctions.Features
+namespace AzureFunctions.Plus.Dependency.Features
 {
     public static class ExecuteFeature
     {
