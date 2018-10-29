@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using AzureFunctions.Plus.Dependency.NUnit;
 using AzureFunctions.Plus.Dependency.Tests.TestNamespace;
 using NUnit.Framework;
@@ -8,10 +9,18 @@ namespace AzureFunctions.Plus.Dependency.Tests.TestServiceInitializerTests.Integ
 {
     public class CompleteTestRun
     {
-        [TestCaseSource(typeof(FeatureTestDataSource<RootType, Utility.TestServiceInitializer>),nameof(FeatureTestDataSource<RootType,Utility.TestServiceInitializer>.TestCases))]
+        [TestCaseSource(nameof(GenerateCases))]
         public void AbcFeaturesResolveCorrectly(Type featureType, IServiceProvider serviceProvider, string testName)
         {
             TestServiceInitializer.AssertCanBuildFeature(featureType,serviceProvider,testName);
+        }
+
+        public static IEnumerable<TestCaseData> GenerateCases()
+        {
+            using (var dataSource = new FeatureTestDataSource<RootType, Utility.TestServiceInitializer>())
+            {
+                return dataSource.Create();
+            }
         }
     }
 }

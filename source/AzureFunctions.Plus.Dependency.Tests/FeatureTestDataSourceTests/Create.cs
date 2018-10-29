@@ -16,19 +16,26 @@ namespace AzureFunctions.Plus.Dependency.Tests.FeatureTestDataSourceTests
         [Test]
         public void CreateTestDataForEveryIFeatureInNamespace()
         {
-            var testData = FeatureTestDataSource<RootType, FakeServiceInitializer>.Create();
-            Assert.That(testData.Count(), Is.EqualTo(3));
+            using (var dataSource = new FeatureTestDataSource<RootType, FakeServiceInitializer>())
+            {
+                var testData = dataSource.Create();
+                Assert.That(testData.Count(), Is.EqualTo(3));
+            }
+            
         }
 
         [Test]
         public void CorrectlyCreateTestData()
         {
-            var testData = FeatureTestDataSource<CFeature, FakeServiceInitializer>.Create().Single();
+            using (var dataSource = new FeatureTestDataSource<RootType, FakeServiceInitializer>())
+            {
+                var testData = dataSource.Create().Single();
 
-            Assert.That(testData.TestName, Is.EqualTo("Features.CFeature"));
-            Assert.That((testData.Arguments[0] as Type)?.Name, Is.EqualTo(nameof(CFeature)));
-            Assert.That((testData.Arguments[1] as IServiceProvider), Is.Not.Null);
-            Assert.That((testData.Arguments[2] as string), Is.EqualTo("Features.CFeature"));
+                Assert.That(testData.TestName, Is.EqualTo("Features.CFeature"));
+                Assert.That((testData.Arguments[0] as Type)?.Name, Is.EqualTo(nameof(CFeature)));
+                Assert.That((testData.Arguments[1] as IServiceProvider), Is.Not.Null);
+                Assert.That((testData.Arguments[2] as string), Is.EqualTo("Features.CFeature"));
+            }
         }
 
 

@@ -3,10 +3,13 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using AzureFunctions.Plus.Dependency.Contracts;
 using AzureFunctions.Plus.Dependency.Features;
+using AzureFunctions.Plus.Dependency.NUnit;
+using AzureFunctions.Plus.Dependency.Tests.FeatureTestDataSourceTests;
 using AzureFunctions.Plus.Dependency.Tests.Utility;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
+using TestServiceInitializer = AzureFunctions.Plus.Dependency.Tests.Utility.TestServiceInitializer;
 
 namespace AzureFunctions.Plus.Dependency.Tests.ExecuteFeatureTests
 {
@@ -15,32 +18,32 @@ namespace AzureFunctions.Plus.Dependency.Tests.ExecuteFeatureTests
         [Test]
         public async Task ExecutesActionWithBodyFeature()
         {
-            var collectionContainer = new FakeServiceCollectionContainer();
-            var fakeService = collectionContainer.Services.GetService<IFakeService>();
-            var request = new FakeHttpRequest<string>("Test");
+            using (var collectionContainer = new AutoFeatureContainer<TestServiceInitializer>(new FakeLogger()))
+            using (var request = new FakeHttpRequest<string>("Test"))
+            {
+                var fakeService = collectionContainer.Services.GetService<IFakeService>();
 
-            var result =
-                await ExecuteFeature.ExecuteActionWithBody<ActionWithBodyFeature, string>(collectionContainer, request, (f, b) => f.Execute(b)) as
-                    OkObjectResult;
+                var result =
+                    await ExecuteFeature.ExecuteActionWithBody<ActionWithBodyFeature, string>(collectionContainer, request, (f, b) => f.Execute(b)) as
+                        OkObjectResult;
 
-            Assert.That(fakeService.Value, Is.EqualTo("Test"));
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.Value, Is.EqualTo("Bla"));
-
-            request.Dispose();
+                Assert.That(fakeService.Value, Is.EqualTo("Test"));
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Value, Is.EqualTo("Bla"));
+            }
         }
 
         [Test]
         public async Task ExecutesActionWithBodyFeatureThrowsException()
         {
-            var collectionContainer = new FakeServiceCollectionContainer();
-            var request = new FakeHttpRequest<string>("Test");
+            using (var collectionContainer = new AutoFeatureContainer<TestServiceInitializer>(new FakeLogger()))
+            using (var request = new FakeHttpRequest<string>("Test"))
+            {
+                var result =
+                    await ExecuteFeature.ExecuteActionWithBody<ActionWithBodyFeatureWithException, string>(collectionContainer, request, (f, b) => f.Execute(b));
 
-            var result =
-                await ExecuteFeature.ExecuteActionWithBody<ActionWithBodyFeatureWithException, string>(collectionContainer, request, (f, b) => f.Execute(b));
-
-            Assert.That(result.GetType(), Is.EqualTo(typeof(InternalServerErrorResult)));
-            request.Dispose();
+                Assert.That(result.GetType(), Is.EqualTo(typeof(InternalServerErrorResult)));
+            }
         }
 
 

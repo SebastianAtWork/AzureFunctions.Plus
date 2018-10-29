@@ -13,7 +13,10 @@ namespace AzureFunctions.Plus.Dependency.Tests.TestServiceInitializerTests
         [Test]
         public void CanBuildFeature()
         {
-            TestServiceInitializer.AssertCanBuildFeature(typeof(CanDoFeature), new CanDoServiceInitializer().CreateServiceCollection(new FakeLogger()).BuildServiceProvider(true), nameof(CanDoFeature));
+            using (var collectionContainer = new AutoFeatureContainer<CanDoServiceInitializer>(new FakeLogger()))
+            {
+                TestServiceInitializer.AssertCanBuildFeature(typeof(CanDoFeature), collectionContainer.Services, nameof(CanDoFeature));
+            }
         }
 
         [Test]
@@ -21,7 +24,10 @@ namespace AzureFunctions.Plus.Dependency.Tests.TestServiceInitializerTests
         {
             try
             {
-                TestServiceInitializer.AssertCanBuildFeature(typeof(NoCanDoFeature), new CanDoServiceInitializer().CreateServiceCollection(new FakeLogger()).BuildServiceProvider(true), nameof(NoCanDoFeature));
+                using (var collectionContainer = new AutoFeatureContainer<CanDoServiceInitializer>(new FakeLogger()))
+                {
+                    TestServiceInitializer.AssertCanBuildFeature(typeof(NoCanDoFeature), collectionContainer.Services, nameof(NoCanDoFeature));
+                }
             }
             catch (AssertionException)
             {

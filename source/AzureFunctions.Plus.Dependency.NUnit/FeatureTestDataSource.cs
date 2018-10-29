@@ -9,27 +9,22 @@ using NUnit.Framework;
 
 namespace AzureFunctions.Plus.Dependency.NUnit
 {
-    public class FeatureTestDataSource<TRootType,TServiceInitializer> where TServiceInitializer : IServiceInitializer
+    public class FeatureTestDataSource<TRootType,TServiceInitializer> : IDisposable where TServiceInitializer : IServiceInitializer
     {
-        
-        // ReSharper disable once UnusedMember.Global
-        public static IEnumerable TestCases
-        {
-            get { return Create(); }
-        }
+        private AutoFeatureContainer<TServiceInitializer> _autoFeatureContainer;
 
-        public static IEnumerable<TestCaseData> Create()
+        public IEnumerable<TestCaseData> Create()
         {
             var namespaceRootType = typeof(TRootType);
             var rootNamespace = namespaceRootType.Namespace;
             var typesOfNamespace =
                 namespaceRootType.Assembly.DefinedTypes.Where(t => t?.Namespace?.StartsWith(rootNamespace)??false);
             var featureTypes = typesOfNamespace.Where(t => t.GetInterface(nameof(IFeature)) != null);
-            var autoFeatureContainer = new AutoFeatureContainer<TServiceInitializer>(new FakeLogger());
-            return featureTypes.Select(f => ConvertToTestData(f, rootNamespace, autoFeatureContainer.Services));
+            _autoFeatureContainer = new AutoFeatureContainer<TServiceInitializer>(new FakeLogger());
+            return featureTypes.Select(f => ConvertToTestData(f, rootNamespace, _autoFeatureContainer.Services));
         }
 
-        private static TestCaseData ConvertToTestData(TypeInfo featureType, string rootNamespace,
+        private TestCaseData ConvertToTestData(TypeInfo featureType, string rootNamespace,
             IServiceProvider serviceProvider)
         {
             var testName = "";
@@ -51,6 +46,11 @@ namespace AzureFunctions.Plus.Dependency.NUnit
             {
                 TestName = testName
             };
+        }
+
+        public void Dispose()
+        {
+            _autoFeatureContainer.Dispose();
         }
     }
 }

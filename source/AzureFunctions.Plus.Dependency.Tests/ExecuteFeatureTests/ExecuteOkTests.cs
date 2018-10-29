@@ -3,10 +3,12 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using AzureFunctions.Plus.Dependency.Contracts;
 using AzureFunctions.Plus.Dependency.Features;
+using AzureFunctions.Plus.Dependency.NUnit;
 using AzureFunctions.Plus.Dependency.Tests.Utility;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
+using TestServiceInitializer = AzureFunctions.Plus.Dependency.Tests.Utility.TestServiceInitializer;
 
 namespace AzureFunctions.Plus.Dependency.Tests.ExecuteFeatureTests
 {
@@ -15,25 +17,29 @@ namespace AzureFunctions.Plus.Dependency.Tests.ExecuteFeatureTests
         [Test]
         public async Task ExecutesOkFeature()
         {
-            var collectionContainer = new FakeServiceCollectionContainer();
-            var fakeService = collectionContainer.Services.GetService<IFakeService>();
+            using (var collectionContainer = new AutoFeatureContainer<TestServiceInitializer>(new FakeLogger()))
+            {
+                var fakeService = collectionContainer.Services.GetService<IFakeService>();
 
-            var result = await ExecuteFeature.ExecuteOk<OkFeature,string>(collectionContainer, f => f.Execute("Test")) as OkObjectResult;
+                var result = await ExecuteFeature.ExecuteOk<OkFeature, string>(collectionContainer, f => f.Execute("Test")) as OkObjectResult;
 
-            Assert.That(fakeService.Value, Is.EqualTo("Test"));
-            Assert.That(result, Is.Not.Null);
-            var resultContent = result.Value;
-            Assert.That(resultContent,Is.EqualTo("Bla"));
+                Assert.That(fakeService.Value, Is.EqualTo("Test"));
+                Assert.That(result, Is.Not.Null);
+                var resultContent = result.Value;
+                Assert.That(resultContent, Is.EqualTo("Bla"));
+            }
+                
         }
 
         [Test]
         public async Task ExecutesOkFeatureThrowsException()
         {
-            var collectionContainer = new FakeServiceCollectionContainer();
+            using (var collectionContainer = new AutoFeatureContainer<TestServiceInitializer>(new FakeLogger()))
+            {
+                var result = await ExecuteFeature.ExecuteOk<OkFeatureWithException, string>(collectionContainer, f => f.Execute("Test"));
 
-            var result = await ExecuteFeature.ExecuteOk<OkFeatureWithException,string>(collectionContainer, f => f.Execute("Test"));
-
-            Assert.That(result.GetType(), Is.EqualTo(typeof(InternalServerErrorResult)));
+                Assert.That(result.GetType(), Is.EqualTo(typeof(InternalServerErrorResult)));
+            }
         }
 
        
