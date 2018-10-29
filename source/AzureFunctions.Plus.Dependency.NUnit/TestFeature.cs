@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 namespace AzureFunctions.Plus.Dependency.NUnit
 {
-    public static class TestServiceInitializer
+    public static class TestFeature
     {
         public static void AssertCanBuildFeature(Type featureType, IServiceProvider serviceProvider, string testName)
         {

@@ -4,7 +4,6 @@ using AzureFunctions.Plus.Dependency.Tests.Utility;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NUnit.Framework;
-using TestServiceInitializer = AzureFunctions.Plus.Dependency.NUnit.TestServiceInitializer;
 
 namespace AzureFunctions.Plus.Dependency.Tests.TestServiceInitializerTests
 {
@@ -15,7 +14,7 @@ namespace AzureFunctions.Plus.Dependency.Tests.TestServiceInitializerTests
         {
             using (var collectionContainer = new AutoFeatureContainer<CanDoServiceInitializer>(new FakeLogger()))
             {
-                TestServiceInitializer.AssertCanBuildFeature(typeof(CanDoFeature), collectionContainer.Services, nameof(CanDoFeature));
+                TestFeature.AssertCanBuildFeature(typeof(CanDoFeature), collectionContainer.Services, nameof(CanDoFeature));
             }
         }
 
@@ -26,7 +25,7 @@ namespace AzureFunctions.Plus.Dependency.Tests.TestServiceInitializerTests
             {
                 using (var collectionContainer = new AutoFeatureContainer<CanDoServiceInitializer>(new FakeLogger()))
                 {
-                    TestServiceInitializer.AssertCanBuildFeature(typeof(NoCanDoFeature), collectionContainer.Services, nameof(NoCanDoFeature));
+                    TestFeature.AssertCanBuildFeature(typeof(NoCanDoFeature), collectionContainer.Services, nameof(NoCanDoFeature));
                 }
             }
             catch (AssertionException)

@@ -27,7 +27,7 @@ namespace AzureFunctions.Plus.Dependency.Tests.FeatureTestDataSourceTests
         [Test]
         public void CorrectlyCreateTestData()
         {
-            using (var dataSource = new FeatureTestDataSource<RootType, FakeServiceInitializer>())
+            using (var dataSource = new FeatureTestDataSource<CFeature, FakeServiceInitializer>())
             {
                 var testData = dataSource.Create().Single();
 
