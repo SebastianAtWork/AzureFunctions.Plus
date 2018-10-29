@@ -52,8 +52,9 @@ Task("Restore Solution")
 .IsDependentOn("GitVersion")
     .Does(() =>
 {
-    NuGetRestore("Ninject.AzureFunctions.sln");
-    DotNetCoreRestore("../source/Ninject.AzureFunctions/Ninject.AzureFunctions.csproj");
+    NuGetRestore("AzureFunctions.Plus.sln");
+    DotNetCoreRestore("../source/AzureFunctions.Plus.Dependency/AzureFunctions.Plus.Dependency.csproj");
+    DotNetCoreRestore("../source/AzureFunctions.Plus.Dependency.NUnit/AzureFunctions.Plus.Dependency.NUnit.csproj");
 });
 
 Task("Build Solution")
@@ -67,7 +68,8 @@ Task("Build Solution")
    Information("Verbosity: " + settings.Verbosity);
    settings.Properties["PackageVersion"] = new []{gitVersion.NuGetVersion + "-" + incrementalValue};
    settings.Properties["ContinueOnError"] = new []{"false"};
-   MSBuild("../source/Ninject.AzureFunctions/Ninject.AzureFunctions.csproj",settings);
+   MSBuild("../source/AzureFunctions.Plus.Dependency/AzureFunctions.Plus.Dependency.csproj",settings);
+   MSBuild("../source/AzureFunctions.Plus.Dependency.NUnit/AzureFunctions.Plus.Dependency.NUnit.csproj",settings);
 });
 
 Task("Test Solution")

@@ -1,0 +1,15 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "source/AzureFunctions.Plus.Dependency.Tests/AzureFunctions.Plus.Dependency.Tests.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}
