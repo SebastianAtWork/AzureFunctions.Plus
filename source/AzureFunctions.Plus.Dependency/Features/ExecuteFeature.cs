@@ -5,21 +5,22 @@ using AzureFunctions.Plus.Dependency.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs.Extensions.Http;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Ninject;
+
 
 namespace AzureFunctions.Plus.Dependency.Features
 {
     public static class ExecuteFeature
     {
 
-        public static async Task<IActionResult> ExecuteVoid<TF>(IAutoFeatureContainer kernelContainer, Func<TF, Task> featureCall)
+        public static async Task<IActionResult> ExecuteVoid<TF>(IAutoFeatureContainer container, Func<TF, Task> featureCall)
         {
-            var log = kernelContainer.Kernel.Get<ILogger>();
+            var log = container.Services.GetRequiredService<ILogger>();
             try
             {
-                var feature = kernelContainer.Kernel.Get<TF>();
+                var feature = container.Services.GetRequiredService<TF>();
                 await featureCall(feature);
                 return new OkResult();
 
@@ -31,12 +32,12 @@ namespace AzureFunctions.Plus.Dependency.Features
             }
         }
 
-        public static async Task<IActionResult> ExecuteOk<TF, TR>(IAutoFeatureContainer kernelContainer, Func<TF, Task<TR>> featureCall)
+        public static async Task<IActionResult> ExecuteOk<TF, TR>(IAutoFeatureContainer container, Func<TF, Task<TR>> featureCall)
         {
-            var log = kernelContainer.Kernel.Get<ILogger>();
+            var log = container.Services.GetRequiredService<ILogger>();
             try
             {
-                var feature = kernelContainer.Kernel.Get<TF>();
+                var feature = container.Services.GetRequiredService<TF>();
                 var result = await featureCall(feature);
                 return new OkObjectResult(result);
 
@@ -48,12 +49,12 @@ namespace AzureFunctions.Plus.Dependency.Features
             }
         }
 
-        public static async Task<IActionResult> ExecuteAction<TF>(IAutoFeatureContainer kernelContainer, Func<TF, Task<IActionResult>> featureCall)
+        public static async Task<IActionResult> ExecuteAction<TF>(IAutoFeatureContainer container, Func<TF, Task<IActionResult>> featureCall)
         {
-            var log = kernelContainer.Kernel.Get<ILogger>();
+            var log = container.Services.GetRequiredService<ILogger>();
             try
             {
-                var feature = kernelContainer.Kernel.Get<TF>();
+                var feature = container.Services.GetRequiredService<TF>();
                 var result = await featureCall(feature);
                 return result;
 
@@ -65,12 +66,12 @@ namespace AzureFunctions.Plus.Dependency.Features
             }
         }
 
-        public static async Task<IActionResult> ExecuteVoidWithBody<TF, TB>(IAutoFeatureContainer kernelContainer, HttpRequest request, Func<TF, TB, Task> featureCall)
+        public static async Task<IActionResult> ExecuteVoidWithBody<TF, TB>(IAutoFeatureContainer container, HttpRequest request, Func<TF, TB, Task> featureCall)
         {
-            var log = kernelContainer.Kernel.Get<ILogger>();
+            var log = container.Services.GetRequiredService<ILogger>();
             try
             {
-                var feature = kernelContainer.Kernel.Get<TF>();
+                var feature = container.Services.GetRequiredService<TF>();
                 var bodySerialized = await request.ReadAsStringAsync();
                 var bodyDeserialized = JsonConvert.DeserializeObject<TB>(bodySerialized);
                 await featureCall(feature, bodyDeserialized);
@@ -84,12 +85,12 @@ namespace AzureFunctions.Plus.Dependency.Features
             }
         }
 
-        public static async Task<IActionResult> ExecuteOkWithBody<TF, TB, TR>(IAutoFeatureContainer kernelContainer, HttpRequest request, Func<TF, TB, Task<TR>> featureCall)
+        public static async Task<IActionResult> ExecuteOkWithBody<TF, TB, TR>(IAutoFeatureContainer container, HttpRequest request, Func<TF, TB, Task<TR>> featureCall)
         {
-            var log = kernelContainer.Kernel.Get<ILogger>();
+            var log = container.Services.GetRequiredService<ILogger>();
             try
             {
-                var feature = kernelContainer.Kernel.Get<TF>();
+                var feature = container.Services.GetRequiredService<TF>();
                 var bodySerialized = await request.ReadAsStringAsync();
                 var bodyDeserialized = JsonConvert.DeserializeObject<TB>(bodySerialized);
                 var result = await featureCall(feature, bodyDeserialized);
@@ -103,12 +104,12 @@ namespace AzureFunctions.Plus.Dependency.Features
             }
         }
 
-        public static async Task<IActionResult> ExecuteActionWithBody<TF, TB>(IAutoFeatureContainer kernelContainer, HttpRequest request, Func<TF, TB, Task<IActionResult>> featureCall)
+        public static async Task<IActionResult> ExecuteActionWithBody<TF, TB>(IAutoFeatureContainer container, HttpRequest request, Func<TF, TB, Task<IActionResult>> featureCall)
         {
-            var log = kernelContainer.Kernel.Get<ILogger>();
+            var log = container.Services.GetRequiredService<ILogger>();
             try
             {
-                var feature = kernelContainer.Kernel.Get<TF>();
+                var feature = container.Services.GetRequiredService<TF>();
                 var bodySerialized = await request.ReadAsStringAsync();
                 var bodyDeserialized = JsonConvert.DeserializeObject<TB>(bodySerialized);
                 var result = await featureCall(feature, bodyDeserialized);

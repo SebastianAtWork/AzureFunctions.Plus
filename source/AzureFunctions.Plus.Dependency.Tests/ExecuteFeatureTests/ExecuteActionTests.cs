@@ -5,7 +5,7 @@ using AzureFunctions.Plus.Dependency.Contracts;
 using AzureFunctions.Plus.Dependency.Features;
 using AzureFunctions.Plus.Dependency.Tests.Utility;
 using Microsoft.AspNetCore.Mvc;
-using Ninject;
+using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 
 namespace AzureFunctions.Plus.Dependency.Tests.ExecuteFeatureTests
@@ -15,11 +15,11 @@ namespace AzureFunctions.Plus.Dependency.Tests.ExecuteFeatureTests
         [Test]
         public async Task ExecutesActionFeature()
         {
-            var kernelContainer = new FakeKernelContainer();
-            var fakeService = kernelContainer.Kernel.Get<IFakeService>();
+            var collectionContainer = new FakeServiceCollectionContainer();
+            var fakeService = collectionContainer.Services.GetService<IFakeService>();
 
             var result =
-                await ExecuteFeature.ExecuteAction<ActionFeature>(kernelContainer, f => f.Execute("Test")) as
+                await ExecuteFeature.ExecuteAction<ActionFeature>(collectionContainer, f => f.Execute("Test")) as
                     OkObjectResult;
 
             Assert.That(fakeService.Value, Is.EqualTo("Test"));
@@ -31,10 +31,10 @@ namespace AzureFunctions.Plus.Dependency.Tests.ExecuteFeatureTests
         [Test]
         public async Task ExecutesActionFeatureThrowsException()
         {
-            var kernelContainer = new FakeKernelContainer();
+            var collectionContainer = new FakeServiceCollectionContainer();
 
             var result =
-                await ExecuteFeature.ExecuteAction<ActionFeatureWithException>(kernelContainer, f => f.Execute("Test"));
+                await ExecuteFeature.ExecuteAction<ActionFeatureWithException>(collectionContainer, f => f.Execute("Test"));
 
             Assert.That(result.GetType(), Is.EqualTo(typeof(InternalServerErrorResult)));
         }

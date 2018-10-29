@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using AzureFunctions.Plus.Dependency.Contracts;
-using Ninject;
+
 using NUnit.Framework;
 
 namespace AzureFunctions.Plus.Dependency.NUnit
 {
-    public class FeatureTestDataSource<TRootType,TKernelInitializer> where TKernelInitializer : IKernelInitializer
+    public class FeatureTestDataSource<TRootType,TServiceInitializer> where TServiceInitializer : IServiceInitializer
     {
         
         // ReSharper disable once UnusedMember.Global
@@ -25,12 +25,12 @@ namespace AzureFunctions.Plus.Dependency.NUnit
             var typesOfNamespace =
                 namespaceRootType.Assembly.DefinedTypes.Where(t => t?.Namespace?.StartsWith(rootNamespace)??false);
             var featureTypes = typesOfNamespace.Where(t => t.GetInterface(nameof(IFeature)) != null);
-            var kernelInitializer = Activator.CreateInstance<TKernelInitializer>();
-            return featureTypes.Select(f => ConvertToTestData(f, rootNamespace, kernelInitializer.CreateKernelConfiguration(new FakeLogger())));
+            var autoFeatureContainer = new AutoFeatureContainer<TServiceInitializer>(new FakeLogger());
+            return featureTypes.Select(f => ConvertToTestData(f, rootNamespace, autoFeatureContainer.Services));
         }
 
         private static TestCaseData ConvertToTestData(TypeInfo featureType, string rootNamespace,
-            IKernelConfiguration kernelConfiguration)
+            IServiceProvider serviceProvider)
         {
             var testName = "";
             var relativeNamespace =
@@ -47,7 +47,7 @@ namespace AzureFunctions.Plus.Dependency.NUnit
             }
 
             testName = "Features." + testName;
-            return new TestCaseData(featureType,kernelConfiguration,testName)
+            return new TestCaseData(featureType,serviceProvider,testName)
             {
                 TestName = testName
             };

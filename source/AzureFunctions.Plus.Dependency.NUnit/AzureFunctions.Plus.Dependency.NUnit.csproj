@@ -15,13 +15,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NuGet.Build.Packaging" Version="0.2.2"/>
-    <PackageReference Include="NUnit" Version="3.11.0"  >
+    <PackageReference Include="NuGet.Build.Packaging" Version="0.2.2" />
+    <PackageReference Include="NUnit" Version="3.11.0">
     </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\AzureFunctions.Plus.Dependency.Contracts\AzureFunctions.Plus.Dependency.Contracts.csproj" />
+    <ProjectReference Include="..\AzureFunctions.Plus.Dependency\AzureFunctions.Plus.Dependency.csproj" />
   </ItemGroup>
 
 </Project>

@@ -32,7 +32,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AzureFunctions.Plus.Dependency.Contracts\AzureFunctions.Plus.Dependency.Contracts.csproj" />
-    <ProjectReference Include="..\AzureFunctions.Plus.Dependency.NUnit\AzureFunctions.Plus.Dependency.NUnit.csproj" />
   </ItemGroup>
 
 </Project>

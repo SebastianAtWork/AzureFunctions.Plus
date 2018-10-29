@@ -5,7 +5,7 @@ using AzureFunctions.Plus.Dependency.Contracts;
 using AzureFunctions.Plus.Dependency.Features;
 using AzureFunctions.Plus.Dependency.Tests.Utility;
 using Microsoft.AspNetCore.Mvc;
-using Ninject;
+using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 
 namespace AzureFunctions.Plus.Dependency.Tests.ExecuteFeatureTests
@@ -15,12 +15,12 @@ namespace AzureFunctions.Plus.Dependency.Tests.ExecuteFeatureTests
         [Test]
         public async Task ExecutesOkWithBodyFeature()
         {
-            var kernelContainer = new FakeKernelContainer();
-            var fakeService = kernelContainer.Kernel.Get<IFakeService>();
+            var collectionContainer = new FakeServiceCollectionContainer();
+            var fakeService = collectionContainer.Services.GetService<IFakeService>();
             var request = new FakeHttpRequest<string>("Test");
 
             var result =
-                await ExecuteFeature.ExecuteOkWithBody<OkWithBodyFeature, string,string>(kernelContainer, request, (f, b) => f.Execute(b)) as
+                await ExecuteFeature.ExecuteOkWithBody<OkWithBodyFeature, string,string>(collectionContainer, request, (f, b) => f.Execute(b)) as
                     OkObjectResult;
 
             Assert.That(fakeService.Value, Is.EqualTo("Test"));
@@ -33,11 +33,11 @@ namespace AzureFunctions.Plus.Dependency.Tests.ExecuteFeatureTests
         [Test]
         public async Task ExecutesOkWithBodyFeatureThrowsException()
         {
-            var kernelContainer = new FakeKernelContainer();
+            var collectionContainer = new FakeServiceCollectionContainer();
             var request = new FakeHttpRequest<string>("Test");
 
             var result =
-                await ExecuteFeature.ExecuteOkWithBody<OkWithBodyFeatureWithException, string,string>(kernelContainer, request, (f, b) => f.Execute(b));
+                await ExecuteFeature.ExecuteOkWithBody<OkWithBodyFeatureWithException, string,string>(collectionContainer, request, (f, b) => f.Execute(b));
 
             Assert.That(result.GetType(), Is.EqualTo(typeof(InternalServerErrorResult)));
             request.Dispose();

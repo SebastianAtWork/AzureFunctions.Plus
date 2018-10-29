@@ -1,9 +1,11 @@
-﻿using Ninject;
+﻿
+
+using System;
 
 namespace AzureFunctions.Plus.Dependency.Contracts
 {
     public interface IAutoFeatureContainer
     {
-        IReadOnlyKernel Kernel { get; }
+        IServiceProvider Services { get; }
     }
 }

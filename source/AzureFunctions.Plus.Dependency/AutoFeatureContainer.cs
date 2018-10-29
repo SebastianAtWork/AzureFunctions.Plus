@@ -4,25 +4,21 @@ using System.Threading.Tasks;
 using AzureFunctions.Plus.Dependency.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Ninject;
+
 
 namespace AzureFunctions.Plus.Dependency
 {
     [ExcludeFromCodeCoverage]
-    public class AutoFeatureContainer<T> : IDisposable, IAutoFeatureContainer where T: IKernelInitializer
+    public class AutoFeatureContainer<T> : IDisposable, IAutoFeatureContainer where T: IServiceInitializer
     {
-        private readonly IReadOnlyKernel _kernel;
 
         public AutoFeatureContainer(ILogger log)
         {
-            var kernelInizializer = Activator.CreateInstance(typeof(T)) as IKernelInitializer;
-            _kernel = kernelInizializer.CreateKernelConfiguration(log).BuildReadonlyKernel();
-        }
-
-        public IReadOnlyKernel Kernel
-        {
-            get { return _kernel; }
+            var serviceInitializer = Activator.CreateInstance(typeof(T)) as IServiceInitializer;
+            var innerProvider = serviceInitializer.CreateServiceCollection(log).BuildServiceProvider(true);
+            Services = new FeatureAndServiceProvider(innerProvider);
         }
 
         public async Task<IActionResult> ExecuteVoidFeature<TF>(HttpRequest request,Func<TF,Task> featureCall) where TF : IFeature
@@ -58,7 +54,9 @@ namespace AzureFunctions.Plus.Dependency
 
         public void Dispose()
         {
-            _kernel.Dispose();
+            (Services as FeatureAndServiceProvider)?.Dispose();
         }
+
+        public IServiceProvider Services { get; }
     }
 }
