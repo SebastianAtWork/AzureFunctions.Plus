@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>Ninject.AzureFunctions</PackageId>
+    <PackageVersion>0.0.0</PackageVersion>
+    <Title>Ninject.AzureFunctions</Title>
+    <Description>Package for integrating Feature classes into Azure Functions. License: https://github.com/SebastianAtWork/Ninject.AzureFunctions.Feature/blob/develop/LICENSE</Description>
+    <Authors>SebastianAtWork</Authors>    
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <OutputPath>../../bin/$(Configuration)/</OutputPath>
+    <IncludeContentInPackage>false</IncludeContentInPackage>
+    <Platforms>AnyCPU;x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Extensions\**" />
+    <EmbeddedResource Remove="Extensions\**" />
+    <None Remove="Extensions\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.WebApiCompatShim" Version="2.1.2" />
+    <PackageReference Include="Microsoft.Azure.WebJobs" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.Http" Version="3.0.0" />
+    <PackageReference Include="Ninject" Version="4.0.0-beta-0134" />
+    <PackageReference Include="NuGet.Build.Packaging" Version="0.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ninject.AzureFunctions.Contracts\Ninject.AzureFunctions.Contracts.csproj" />
+    <ProjectReference Include="..\Ninject.AzureFunctions.NUnit\Ninject.AzureFunctions.NUnit.csproj" />
+  </ItemGroup>
+
+</Project>

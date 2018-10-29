@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <Platforms>AnyCPU;x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
+    <PackageReference Include="Ninject" Version="4.0.0-beta-0134" />
+    <PackageReference Include="Ninject.Extensions.Conventions" Version="3.3.0" />
+    <PackageReference Include="NUnit" Version="3.11.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ninject.AzureFunctions.Contracts\Ninject.AzureFunctions.Contracts.csproj" />
+    <ProjectReference Include="..\Ninject.AzureFunctions.NUnit\Ninject.AzureFunctions.NUnit.csproj" />
+    <ProjectReference Include="..\Ninject.AzureFunctions\Ninject.AzureFunctions.csproj" />
+  </ItemGroup>
+
+</Project>
