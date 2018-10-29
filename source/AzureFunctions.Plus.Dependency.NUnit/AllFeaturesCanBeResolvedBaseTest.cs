@@ -8,7 +8,8 @@ using NUnit.Framework;
 
 namespace AzureFunctions.Plus.Dependency.NUnit
 {
-    public class AllFeaturesCanBeResolvedBaseTest<TRootType,TServiceInitializer> : IDisposable where TRootType: class where TServiceInitializer : IServiceInitializer
+    public abstract class AllFeaturesCanBeResolvedBaseTest<TRootType,TServiceInitializer,TFakeEnvironmentInitializer> : IDisposable 
+        where TRootType: class where TServiceInitializer : IServiceInitializer where TFakeEnvironmentInitializer : IFakeEnvironmentInitializer
     {
         private static FeatureTestDataSource<TRootType, TServiceInitializer> _dataSource;
 
@@ -22,6 +23,8 @@ namespace AzureFunctions.Plus.Dependency.NUnit
         {
             if (_dataSource == null)
             {
+                var environmentInitializer = Activator.CreateInstance<TFakeEnvironmentInitializer>();
+                environmentInitializer.Initialize();
                 _dataSource = new FeatureTestDataSource<TRootType, TServiceInitializer>();
             }
             return _dataSource.Create();

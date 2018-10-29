@@ -7,8 +7,7 @@ using NUnit.Framework;
 
 namespace AzureFunctions.Plus.Dependency.Tests.TestServiceInitializerTests.Integration
 {
-    public class CompleteTestRun : AllFeaturesCanBeResolvedBaseTest<RootType, TestServiceInitializer>
+    public class CompleteTestRun : AllFeaturesCanBeResolvedBaseTest<RootType, TestServiceInitializer,FakeEnvironmentInitializer>
     {
-        
     }
 }
