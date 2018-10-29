@@ -14,9 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Ninject.AzureFunctions.Contracts\Ninject.AzureFunctions.Contracts.csproj" />
-    <ProjectReference Include="..\Ninject.AzureFunctions.NUnit\Ninject.AzureFunctions.NUnit.csproj" />
-    <ProjectReference Include="..\Ninject.AzureFunctions\Ninject.AzureFunctions.csproj" />
+    <ProjectReference Include="..\AzureFunctions.Plus.Dependency.Contracts\AzureFunctions.Plus.Dependency.Contracts.csproj" />
+    <ProjectReference Include="..\AzureFunctions.Plus.Dependency.NUnit\AzureFunctions.Plus.Dependency.NUnit.csproj" />
+    <ProjectReference Include="..\AzureFunctions.Plus.Dependency\AzureFunctions.Plus.Dependency.csproj" />
   </ItemGroup>
 
 </Project>

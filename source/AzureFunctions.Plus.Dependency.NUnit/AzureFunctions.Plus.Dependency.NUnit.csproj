@@ -2,10 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageId>Ninject.AzureFunctions.NUnit</PackageId>
+    <PackageId>AzureFunctions.Plus.Dependency.NUnit</PackageId>
     <PackageVersion>0.0.0</PackageVersion>
-    <Title>Ninject.AzureFunctions.NUnit</Title>
-    <Description>Ninject.AzureFunctions.NUnit. License: https://github.com/SebastianAtWork/Ninject.AzureFunctions.Feature/blob/develop/LICENSE</Description>
+    <Title>AzureFunctions.Plus.Dependency.NUnit</Title>
+    <Description>AzureFunctions.Plus.Dependency.NUnit. License:https://github.com/SebastianAtWork/AzureFunctions.Plus/blob/master/LICENSE </Description>
     <Authors>SebastianAtWork</Authors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Ninject.AzureFunctions.Contracts\Ninject.AzureFunctions.Contracts.csproj" />
+    <ProjectReference Include="..\AzureFunctions.Plus.Dependency.Contracts\AzureFunctions.Plus.Dependency.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

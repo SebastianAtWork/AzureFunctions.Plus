@@ -2,10 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageId>Ninject.AzureFunctions.Contracts</PackageId>
+    <PackageId>AzureFunctions.Plus.Dependency.Contracts</PackageId>
     <PackageVersion>0.0.0</PackageVersion>
-    <Title>Ninject.AzureFunctions.Contracts</Title>
-    <Description>Ninject.AzureFunctions.Contracts. License: https://github.com/SebastianAtWork/Ninject.AzureFunctions.Feature/blob/develop/LICENSE</Description>
+    <Title>AzureFunctions.Plus.Dependency.Contracts</Title>
+    <Description>AzureFunctions.Plus.Dependency.Contracts. License: https://github.com/SebastianAtWork/AzureFunctions.Plus/blob/master/LICENSE </Description>
     <Authors>SebastianAtWork</Authors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
